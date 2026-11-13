@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkySight Vision Center · Oftalmología en Pilar</title>
+  <meta name="description" content="Especialistas en el cuidado de tus ojos. Sacá tu turno online o por WhatsApp.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Colores del logo ---------- */
+    :root {
+      --crudo:    #F6F1E7;   /* fondo principal */
+      --crudo-2:  #ECE3D0;   /* fondo de secciones alternas */
+      --naranja:  #E57742;   /* acento (WhatsApp, detalles) */
+      --azul:     #1A365B;   /* títulos, botón principal, secciones oscuras */
+      --tinta:    #1D1D1B;   /* texto */
+      --linea:    #D9CDB4;   /* bordes suaves */
+      --radio:    16px;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-padding-top: 76px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--tinta);
+      background: var(--crudo);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { color: var(--azul); line-height: 1.15; margin: 0 0 .5em; font-weight: 300; }
+    h1 { font-size: clamp(2.8rem, 8vw, 5.2rem); letter-spacing: -.02em; }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); letter-spacing: -.01em; }
+    h3 { font-size: 1.25rem; font-weight: 600; }
+    p  { margin: 0 0 1em; max-width: 62ch; }
+
+    :focus-visible { outline: 3px solid var(--naranja); outline-offset: 3px; }
+
+    .contenedor { width: min(1100px, 100% - 2.5rem); margin-inline: auto; }
+    section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+    .alterna { background: var(--crudo-2); }
+
+    /* ---------- Botones ---------- */
+    .btn {
+      display: inline-block;
+      padding: .8rem 1.5rem;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      font: inherit; font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-azul     { background: var(--azul);    color: var(--crudo); }
+    .btn-naranja  { background: var(--naranja); color: var(--tinta); }
+    .btn-borde    { border-color: var(--azul);  color: var(--azul); background: transparent; }
+    .btn:hover    { filter: brightness(1.08); }
+
+    /* ---------- Header ---------- */
+    header.sitio {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--crudo);
+      border-bottom: 1px solid var(--linea);
+    }
+    header.sitio .contenedor {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding-block: .6rem;
+    }
+    header.sitio img { height: 48px; width: auto; }
+    header.sitio nav { display: flex; gap: 1.75rem; }
+    header.sitio nav a { text-decoration: none; font-weight: 400; }
+    header.sitio nav a:hover { color: var(--naranja); }
+
+    /* ---------- 1. Hero ---------- */
+    .hero .contenedor {
+      display: grid; gap: 3rem; align-items: center;
+      grid-template-columns: 1.1fr .9fr;
+    }
+    .hero .bajada { font-size: 1.2rem; }
+    .hero .acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+    .hero .datos { font-size: .95rem; opacity: .8; }
+
+    /* Foto con forma de media luna, igual que el logo */
+    .hero-foto {
+      aspect-ratio: 4 / 5;
+      border-radius: 999px 0 0 999px;
+      background: var(--crudo-2);
+      border: 2px dashed var(--linea);
+      display: grid; place-items: center;
+      color: #8a7f68; text-align: center; padding: 1rem;
+    }
+
+    .confianza {
+      display: flex; flex-wrap: wrap; gap: 1rem 3rem;
+      list-style: none; padding: 0; margin: 4rem 0 0;
+      padding-top: 1.5rem; border-top: 1px solid var(--linea);
+    }
+    .confianza strong { display: block; font-size: 2rem; font-weight: 300; color: var(--azul); line-height: 1.1; }
+
+    /* ---------- 2. Tratamientos ---------- */
+    .grilla-trat { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
+    .tarjeta {
+      background: #FBF8F1;
+      border: 1px solid var(--linea);
+      border-radius: var(--radio);
+      padding: 1.5rem;
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .tarjeta p { flex: 1; }
+    .tarjeta .btn { padding: .6rem 1.2rem; font-size: .95rem; }
+
+    /* ---------- 3. Equipo ---------- */
+    .grilla-equipo { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin: 2rem 0; }
+    .profesional img, .profesional .foto {
+      width: 100%; aspect-ratio: 1; border-radius: 50%; object-fit: cover;
+      background: var(--crudo); border: 2px dashed var(--linea);
+      display: grid; place-items: center; color: #8a7f68; font-size: .9rem;
+      margin-bottom: 1rem;
+    }
+    .profesional h3 { margin-bottom: .15rem; }
+    .profesional p  { font-size: .95rem; opacity: .8; margin: 0; }
+
+    /* ---------- 4. Experiencia (sección azul) ---------- */
+    .oscura { background: var(--azul); color: var(--crudo); }
+    .oscura h2, .oscura h3 { color: var(--crudo); }
+    .oscura h3 { color: var(--naranja); }
+    .experiencia .contenedor { display: grid; gap: 3rem; grid-template-columns: 1fr 1fr; align-items: center; }
+    .experiencia .foto {
+      aspect-ratio: 4 / 3; border-radius: var(--radio);
+      border: 2px dashed rgba(246,241,231,.35);
+      display: grid; place-items: center; color: rgba(246,241,231,.6);
+    }
+    .experiencia ul { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.25rem; }
+    .experiencia li p { margin: 0; }
+
+    /* ---------- 5. Pacientes ---------- */
+    .grilla-testimonios { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin: 2rem 0; }
+    blockquote {
+      margin: 0; padding: 1.5rem;
+      background: var(--crudo);
+      border-radius: var(--radio);
+      border-left: 4px solid var(--naranja);
+    }
+    blockquote p { font-size: 1.15rem; }
+    blockquote footer { font-size: .95rem; opacity: .8; }
+
+    /* ---------- 6. Contacto ---------- */
+    .contacto .contenedor { display: grid; gap: 3rem; grid-template-columns: 1.1fr .9fr; align-items: start; }
+    fieldset { border: 0; padding: 0; margin: 0 0 1.5rem; }
+    legend { font-weight: 600; color: var(--azul); margin-bottom: .6rem; padding: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .chips label {
+      padding: .5rem 1rem; border-radius: 999px; cursor: pointer;
+      border: 2px solid var(--azul); color: var(--azul);
+    }
+    .chips input { position: absolute; opacity: 0; pointer-events: none; }
+    .chips label:has(input:checked)        { background: var(--azul); color: var(--crudo); }
+    .chips label:has(input:focus-visible)  { outline: 3px solid var(--naranja); outline-offset: 3px; }
+    .vista-previa { background: var(--crudo-2); border-radius: var(--radio); padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+    .vista-previa small { display: block; opacity: .7; }
+    .form-acciones { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+    address { font-style: normal; margin-bottom: 1.5rem; }
+    address p { margin-bottom: .5rem; }
+    .mapa { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radio); background: var(--crudo-2); }
+
+    /* ---------- Footer ---------- */
+    footer.sitio { background: var(--azul); color: var(--crudo); padding: 2.5rem 0 5rem; font-size: .95rem; }
+    footer.sitio p { max-width: none; margin-bottom: .5rem; }
+
+    /* ---------- Barra fija en celular ---------- */
+    .barra-movil { display: none; }
+
+    /* ---------- Celular ---------- */
+    @media (max-width: 760px) {
+      header.sitio nav { display: none; }
+      .hero .contenedor, .experiencia .contenedor, .contacto .contenedor { grid-template-columns: 1fr; }
+      .hero-foto { aspect-ratio: 16 / 10; border-radius: 999px 999px 0 0; }
+      .barra-movil {
+        display: grid; grid-template-columns: 1fr 1fr; gap: .5rem;
+        position: fixed; inset: auto 0 0 0; z-index: 20;
+        padding: .6rem; background: var(--crudo); border-top: 1px solid var(--linea);
+      }
+      .barra-movil .btn { text-align: center; padding: .75rem .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ HEADER FIJO ============ -->
+<header class="sitio">
+  <div class="contenedor">
+    <a href="#inicio"><img src="logo.png" alt="SkySight Vision Center"></a>
+    <nav>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-azul" href="[URL-TURNOS-ONLINE]">Turno online</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="contenedor">
+      <div>
+        <h1>Ver más allá</h1>
+        <p class="bajada">Especialistas en el cuidado de tus ojos, con tecnología de vanguardia y un acompañamiento pensado para que cada decisión sea simple y segura.</p>
+
+        <div class="acciones">
+          <a class="btn btn-azul" href="[URL-TURNOS-ONLINE]">Reservar turno online</a>
+          <a class="btn btn-naranja" href="https://wa.me/549XXXXXXXXXX">Escribinos por WhatsApp</a>
+        </div>
+        <p class="datos">011 5273-0270 · Los Crisantemos 392, Manuel Alberti</p>
+      </div>
+
+      <!-- Reemplazar por <img src="hero.webp" alt="..."> -->
+      <div class="hero-foto" role="img" aria-label="Foto del centro">[Foto del centro o de un paciente]</div>
+    </div>
+
+    <div class="contenedor">
+      <ul class="confianza">
+        <li><strong>4,9</strong> en Google · [XXX] reseñas</li>
+        <li><strong>+5.200</strong> seguidores en Instagram</li>
+        <li><strong>[XX.000]</strong> pacientes atendidos</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2. TRATAMIENTOS ============ -->
+  <section class="alterna" id="tratamientos">
+    <div class="contenedor">
+      <h2>¿Qué querés resolver?</h2>
+      <p>Elegí lo que te pasa y te escribimos con el mensaje ya armado.</p>
+
+      <div class="grilla-trat">
+        <article class="tarjeta">
+          <h3>Control visual</h3>
+          <p>Tu chequeo anual, completo y en una visita.</p>
+          <button class="btn btn-naranja wa" data-msg="Hola SkySight, quiero sacar un turno para un control oftalmológico.">Consultar por WhatsApp</button>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Visión nublada (cataratas)</h3>
+          <p>Evaluación, opciones de técnica y de lente, cirugía ambulatoria.</p>
+          <button class="btn btn-naranja wa" data-msg="Hola SkySight, quiero hacer una consulta por cataratas.">Consultar por WhatsApp</button>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Ojos secos o irritados</h3>
+          <p>Diagnóstico de la causa y tratamiento con luz pulsada (Eye Wellness).</p>
+          <button class="btn btn-naranja wa" data-msg="Hola SkySight, quiero consultar por ojo seco / Eye Wellness.">Consultar por WhatsApp</button>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Córnea</h3>
+          <p>Estudios, tratamiento y trasplante cuando es necesario.</p>
+          <button class="btn btn-naranja wa" data-msg="Hola SkySight, quiero hacer una consulta por un tema de córnea.">Consultar por WhatsApp</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. EQUIPO ============ -->
+  <section id="equipo">
+    <div class="contenedor">
+      <h2>Conocé a quienes cuidan tu visión</h2>
+
+      <div class="grilla-equipo">
+        <!-- Reemplazar cada <div class="foto"> por <img src="nombre.webp" alt="..." loading="lazy"> -->
+        <article class="profesional">
+          <div class="foto" role="img" aria-label="Retrato">[Retrato]</div>
+          <h3>Dr. Federico Luengo Gimeno</h3>
+          <p>[Subespecialidad] · M.N. [XXXXX]</p>
+        </article>
+
+        <article class="profesional">
+          <div class="foto" role="img" aria-label="Retrato">[Retrato]</div>
+          <h3>Dra. Diana Pancallo</h3>
+          <p>[Subespecialidad] · M.N. [XXXXX]</p>
+        </article>
+
+        <article class="profesional">
+          <div class="foto" role="img" aria-label="Retrato">[Retrato]</div>
+          <h3>Dra. Michell Mosquera</h3>
+          <p>[Subespecialidad] · M.N. [XXXXX]</p>
+        </article>
+
+        <article class="profesional">
+          <div class="foto" role="img" aria-label="Retrato">[Retrato]</div>
+          <h3>Dr. Rodolfo Vigo</h3>
+          <p>[Subespecialidad] · M.N. [XXXXX]</p>
+        </article>
+      </div>
+
+      <p>Participamos en congresos y nos actualizamos de forma constante. [Opcional]</p>
+      <a class="btn btn-borde" href="#contacto">Solicitá tu turno</a>
+    </div>
+  </section>
+
+  <!-- ============ 4. EXPERIENCIA ============ -->
+  <section class="oscura experiencia" id="experiencia">
+    <div class="contenedor">
+      <div>
+        <h2>Un lugar pensado para que te sientas bien</h2>
+        <ul>
+          <li>
+            <h3>Tecnología de diagnóstico</h3>
+            <p>[Equipos destacados] y resultados en la misma visita.</p>
+          </li>
+          <li>
+            <h3>Un asesor que te acompaña</h3>
+            <p>Turnos, estudios, cobertura y presupuesto con una sola persona de referencia.</p>
+          </li>
+          <li>
+            <h3>Diseño y confort</h3>
+            <p>Espacios luminosos y sin esperas largas.</p>
+          </li>
+        </ul>
+      </div>
+      <div class="foto" role="img" aria-label="Interior del centro">[Foto del centro]</div>
+    </div>
+  </section>
+
+  <!-- ============ 5. PACIENTES ============ -->
+  <section class="alterna" id="pacientes">
+    <div class="contenedor">
+      <h2>Historias reales</h2>
+
+      <div class="grilla-testimonios">
+        <blockquote>
+          <p>"[Testimonio breve del paciente]"</p>
+          <footer>[Nombre] · [Tratamiento] · ★★★★★</footer>
+        </blockquote>
+        <blockquote>
+          <p>"[Testimonio breve del paciente]"</p>
+          <footer>[Nombre] · [Tratamiento] · ★★★★★</footer>
+        </blockquote>
+      </div>
+
+      <a class="btn btn-borde" href="https://instagram.com/skysightvisioncenter">Ver más en @skysightvisioncenter</a>
+    </div>
+  </section>
+
+  <!-- ============ 6. CONTACTO ============ -->
+  <section class="contacto" id="contacto">
+    <div class="contenedor">
+
+      <div>
+        <h2>Empezá a ver más allá</h2>
+        <p>Armá tu consulta en dos toques y te respondemos por WhatsApp.</p>
+
+        <form id="form-wa">
+          <fieldset>
+            <legend>Motivo</legend>
+            <div class="chips">
+              <label><input type="radio" name="motivo" value="un control visual" checked> Control visual</label>
+              <label><input type="radio" name="motivo" value="cataratas"> Cataratas</label>
+              <label><input type="radio" name="motivo" value="ojo seco / Eye Wellness"> Ojo seco</label>
+              <label><input type="radio" name="motivo" value="un tema de córnea"> Córnea</label>
+              <label><input type="radio" name="motivo" value="otra consulta"> Otro</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Cobertura</legend>
+            <div class="chips">
+              <label><input type="radio" name="cobertura" value="obra social / prepaga" checked> Obra social / prepaga</label>
+              <label><input type="radio" name="cobertura" value="atención particular"> Particular</label>
+            </div>
+          </fieldset>
+
+          <div class="vista-previa">
+            <small>Tu mensaje</small>
+            <output id="vista-previa"></output>
+          </div>
+
+          <div class="form-acciones">
+            <button class="btn btn-naranja" type="submit">Enviar por WhatsApp</button>
+            <a class="btn btn-borde" href="[URL-TURNOS-ONLINE]">Reservar turno online</a>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <address>
+          <p><strong>Skyglass 3</strong><br>Los Crisantemos 392, Manuel Alberti, Pilar</p>
+          <p>Tel: 011 5273-0270</p>
+          <p>Email: consultorioskysight@gmail.com</p>
+          <p>Horarios: [Lunes a viernes 00 a 00 h]</p>
+        </address>
+        <iframe class="mapa" src="[URL-GOOGLE-MAPS-EMBED]" title="Mapa de Skyglass 3" loading="lazy"></iframe>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="sitio">
+  <div class="contenedor">
+    <p><a href="https://instagram.com/skysightvisioncenter">Instagram</a> · <a href="[URL-FACEBOOK]">Facebook</a> · <a href="[URL-LINKEDIN]">LinkedIn</a></p>
+    <p>Dirección: Los Crisantemos 392, Manuel Alberti, Pilar</p>
+    <p>Horarios de atención: [Lunes a viernes 00 a 00 h]</p>
+    <p>Director médico: [Nombre y apellido] · M.N. [XXXXX] · N.º de habilitación [XXXX]</p>
+    <p>© 2026 SkySight Vision Center · <a href="[URL-PRIVACIDAD]">Privacidad (Ley 25.326)</a></p>
+  </div>
+</footer>
+
+<!-- ============ BARRA FIJA (solo celular) ============ -->
+<div class="barra-movil">
+  <a class="btn btn-naranja" href="https://wa.me/549XXXXXXXXXX">WhatsApp</a>
+  <a class="btn btn-azul" href="[URL-TURNOS-ONLINE]">Turno online</a>
+</div>
+
+<script>
+  // Número de WhatsApp en formato internacional, sin + ni espacios (Argentina celular: 549 + área + número)
+  const WA_NUMBER = "549XXXXXXXXXX";
+  const abrirWA = (texto) =>
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+
+  document.querySelectorAll("button.wa").forEach((btn) =>
+    btn.addEventListener("click", () => abrirWA(btn.dataset.msg))
+  );
+
+  const form = document.getElementById("form-wa");
+  const vista = document.getElementById("vista-previa");
+  const armarMensaje = () =>
+    `Hola SkySight, quiero consultar por ${form.motivo.value}. Mi cobertura: ${form.cobertura.value}.`;
+
+  form.addEventListener("change", () => (vista.textContent = armarMensaje()));
+  form.addEventListener("submit", (e) => { e.preventDefault(); abrirWA(armarMensaje()); });
+  vista.textContent = armarMensaje();
+</script>
+
+</body>
+</html>
